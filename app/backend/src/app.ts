@@ -1,4 +1,5 @@
 import * as express from 'express';
+import routers from './routers/users.router';
 import middlewareError from './middlewares/error';
 
 class App {
@@ -23,6 +24,7 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.use(routers);
     this.app.use(middlewareError);
   }
 
