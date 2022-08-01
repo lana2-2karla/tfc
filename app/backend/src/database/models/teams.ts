@@ -13,13 +13,14 @@ Team.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  teamsName: {
+  teamName: {
     type: STRING,
     allowNull: false,
   },
 }, {
   sequelize: db,
   modelName: 'team',
-  timestamps: false });
+  timestamps: false,
+  underscored: true });
 
 export default Team;
