@@ -16,31 +16,12 @@ describe('Valida o login do usuário', () => {
 
   let chaiHttpResponse : Response;
 
-  before(async () => {
-
-    const resultExecute = {
-      id: 1,
-      userName: 'Example A',
-      role: 'Example role',
-      email: 'example@gmail.com',
-      password: '1234',
-    }
-
-    sinon
-      .stub(User, "findOne")
-      .resolves(resultExecute as User);
-  });
-
-  after(()=>{
-    (User.findOne as sinon.SinonStub).restore();
-  })
-
   it('retorna o token e o status com o código 200', async () => {
     chaiHttpResponse = await chai.request(app).post('/login').send({
-      email: 'example@gmail.com',
-      password: '1234'
+      email: 'admin@admin.com',
+      password: 'secret_admin',
     })
-
+    
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.have.property('token');
   });
@@ -54,11 +35,28 @@ describe('Valida o login do usuário', () => {
 
   it('valida que a senha é obrigatória', async () => {
     chaiHttpResponse = await chai.request(app).post('/login').send({
-      email: 'example@gmail.com',
-    })
+      email: 'admin@admin.com',
+    });
 
     expect(chaiHttpResponse).to.have.status(400);
     expect(chaiHttpResponse.body).to.have.property('message').equal('All fields must be filled') 
-  })
+  });
 
+  it('valida que retorna um erro se o email estiver incorreto', async () => {
+    chaiHttpResponse = await chai.request(app).post('/login').send({
+      email: 'admin@admin.co',
+      password: 'secret_admin',
+    })
+    expect(chaiHttpResponse).to.have.status(401);
+    expect(chaiHttpResponse.body).to.have.property('message').equal('Incorrect email or password') 
+  });
+
+  it('valida que retorna um erro se a senha estiver incorreto', async () => {
+    chaiHttpResponse = await chai.request(app).post('/login').send({
+      email: 'admin@admin.com',
+      password: 'secret_admi',
+    })
+    expect(chaiHttpResponse).to.have.status(401);
+    expect(chaiHttpResponse.body).to.have.property('message').equal('Incorrect email or password') 
+  });
 });
