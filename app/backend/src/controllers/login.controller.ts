@@ -13,6 +13,11 @@ class UserTokenController {
     const token = await this.service.authLogin(req.body);
     res.status(200).json(token);
   }
+
+  public async UserRole(req: Request, res: Response) {
+    const role = await this.service.roleUser(req.headers.authorization);
+    res.status(200).json(role);
+  }
 }
 
 export default UserTokenController;
