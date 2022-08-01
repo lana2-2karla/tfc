@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import * as bcrypt from 'bcryptjs';
+import { JwtPayload } from 'jsonwebtoken';
 import { Ilogin, Itoken } from '../interfaces/interface';
 import User from '../database/models/user';
 import TokenGenerate from '../utils/jwtToken';
@@ -14,12 +15,19 @@ class UserTokenService {
     });
 
     if (!user) throw new HttpException(401, 'Incorrect email or password');
-    const { password, email } = user;
+    const { password, id, role, email } = user;
     const passwordHash = await bcrypt.compare(userData.password, password);
     if (!passwordHash) throw new HttpException(401, 'Incorrect email or password');
     const newToken = new TokenGenerate();
-    const token = newToken.generateJwtToken(email);
+    const token = await newToken.generateJwtToken({ id, role, email });
     return { token };
+  }
+
+  public async roleUser(token?: string): Promise<Pick<User, 'role'>> {
+    if (!token) throw new HttpException(404, 'User not found');
+    const userToken = new TokenGenerate();
+    const { role } = await userToken.authenticateToken(token) as JwtPayload;
+    return { role };
   }
 }
 
