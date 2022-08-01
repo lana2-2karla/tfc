@@ -11,4 +11,9 @@ routers.post(
   (req: Request, res: Response) => userTokenController.UserToken(req, res),
 );
 
+routers.get(
+  '/login/validate',
+  (req: Request, res: Response) => userTokenController.UserRole(req, res),
+);
+
 export default routers;
