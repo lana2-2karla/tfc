@@ -1,4 +1,4 @@
-import { SignOptions, sign, verify } from 'jsonwebtoken';
+import { SignOptions, sign, verify, JwtPayload } from 'jsonwebtoken';
 import 'dotenv/config';
 // import { Ilogin } from '../interfaces/interface';
 import HttpException from './http.exception';
@@ -15,7 +15,7 @@ class TokenGenerate {
     else this.jwtConfig = jwtConfig;
   }
 
-  public generateJwtToken(payload: string) {
+  public generateJwtToken(payload: JwtPayload) {
     return sign(payload, SECRET, this.jwtConfig);
   }
 
