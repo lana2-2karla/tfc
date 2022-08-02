@@ -5,6 +5,15 @@ class MatchesService {
     const matches = Match.findAll();
     return matches;
   }
+
+  public static async getMatchesByInProgress(inProgress: boolean): Promise<Match[]> {
+    const matches = Match.findAll({
+      where: {
+        inProgress,
+      },
+    });
+    return matches;
+  }
 }
 
 export default MatchesService;
