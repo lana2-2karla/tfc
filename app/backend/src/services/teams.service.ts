@@ -5,6 +5,11 @@ class TeamsService {
     const teams = Team.findAll();
     return teams;
   }
+
+  public static async getTeamsById(id: string): Promise<Team | null> {
+    const team = Team.findByPk(id);
+    return team;
+  }
 }
 
 export default TeamsService;
