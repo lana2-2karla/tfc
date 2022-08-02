@@ -20,12 +20,12 @@ class TokenGenerate {
   }
 
   public async authenticateToken(token: string) {
-    if (!token) throw new HttpException(401, 'undefined token');
+    if (!token) throw new HttpException(401, 'Token must be a valid token');
     try {
       const introspection = await verify(token, SECRET, this.jwtConfig);
       return introspection;
     } catch (error) {
-      throw new HttpException(401, 'invalid token');
+      throw new HttpException(401, 'Token must be a valid token');
     }
   }
 }
