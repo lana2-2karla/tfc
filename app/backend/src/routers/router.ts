@@ -6,6 +6,7 @@ import TeamsController from '../controllers/teams.controller';
 const routers: Router = Router();
 
 const userTokenController = new UserTokenController();
+
 routers.post(
   '/login',
   loginValidate.validateSchema,
@@ -18,5 +19,7 @@ routers.get(
 );
 
 routers.get('/teams', (req: Request, res: Response) => TeamsController.getTeams(req, res));
+
+routers.get('/teams/:id', (req: Request, res: Response) => TeamsController.getTeamsById(req, res));
 
 export default routers;
