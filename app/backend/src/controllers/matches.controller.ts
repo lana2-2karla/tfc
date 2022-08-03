@@ -22,6 +22,11 @@ class MatchesController {
     const isUpdateMatch = await MatchesService.updateInProgress(req.params.id);
     if (isUpdateMatch) return res.status(200).json({ message: 'Finished' });
   }
+
+  public static async updateInProgressTrue(req: Request, res: Response) {
+    const isUpdateMatch = await MatchesService.updateInProgressTrue(req.params.id, req.body);
+    if (isUpdateMatch) return res.status(200).json({ message: 'true' });
+  }
 }
 
 export default MatchesController;
