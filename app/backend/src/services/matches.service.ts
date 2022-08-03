@@ -47,6 +47,12 @@ class MatchesService {
     const isUpdateMatch = Match.update({ inProgress: false }, { where: { id } });
     return isUpdateMatch;
   }
+
+  public static async updateInProgressTrue(id: string, matchData:IMatch) {
+    const { homeTeamGoals, awayTeamGoals } = matchData;
+    const isUpdateMatch = Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return isUpdateMatch;
+  }
 }
 
 export default MatchesService;
