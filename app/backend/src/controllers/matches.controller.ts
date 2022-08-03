@@ -14,9 +14,13 @@ class MatchesController {
   }
 
   public static async createNewMatch(req: Request, res: Response) {
-    const boolInProgress = req.query.inProgress === 'true';
-    const newMatch = await MatchesService.createNewMatch(req.body, boolInProgress);
-    res.status(200).json(newMatch);
+    const newMatch = await MatchesService.createNewMatch(req.body);
+    res.status(201).json(newMatch);
+  }
+
+  public static async updateInProgress(req: Request, res: Response) {
+    const isUpdateMatch = await MatchesService.updateInProgress(req.params.id);
+    if (isUpdateMatch) return res.status(200).json({ message: 'Finished' });
   }
 }
 
