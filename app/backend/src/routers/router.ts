@@ -37,4 +37,9 @@ routers.patch(
   (req: Request, res: Response) => MatchesController.updateInProgress(req, res),
 );
 
+routers.patch(
+  '/matches/:id',
+  (req: Request, res: Response) => MatchesController.updateInProgressTrue(req, res),
+);
+
 export default routers;
