@@ -5,7 +5,12 @@ import Team from '../database/models/teams';
 
 class MatchesService {
   public static async getMatches(): Promise<Match[]> {
-    const matches = await Match.findAll();
+    const matches = await Match.findAll({
+      include: [
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+    });
     return matches;
   }
 
@@ -14,6 +19,10 @@ class MatchesService {
       where: {
         inProgress,
       },
+      include: [
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
     });
     return matches;
   }
