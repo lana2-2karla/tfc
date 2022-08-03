@@ -27,8 +27,8 @@ class MatchesService {
     return matches;
   }
 
-  public static async createNewMatch(matchData: IMatch, inProgress: boolean) {
-    const { homeTeam, awayTeam } = matchData;
+  public static async createNewMatch(matchData: IMatch) {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = matchData;
     if (homeTeam === awayTeam) {
       throw new HttpException(401, 'It is not possible to create a match with two equal teams');
     }
@@ -36,10 +36,16 @@ class MatchesService {
 
     const isRepeatedAway = await Team.findOne({ where: { id: awayTeam } });
     if (!isRepeatedHome || !isRepeatedAway) {
-      throw new HttpException(401, 'There is no team with such id!');
+      throw new HttpException(404, 'There is no team with such id!');
     }
-    const newMatch = await Match.create({ ...matchData, inProgress });
+    const newMatch = await Match
+      .create({ homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress: true });
     return newMatch;
+  }
+
+  public static async updateInProgress(id: string) {
+    const isUpdateMatch = Match.update({ inProgress: false }, { where: { id } });
+    return isUpdateMatch;
   }
 }
 
