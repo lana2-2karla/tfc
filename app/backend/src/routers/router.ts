@@ -32,4 +32,9 @@ routers.post(
   (req: Request, res: Response) => MatchesController.createNewMatch(req, res),
 );
 
+routers.patch(
+  '/matches/:id/finish',
+  (req: Request, res: Response) => MatchesController.updateInProgress(req, res),
+);
+
 export default routers;
