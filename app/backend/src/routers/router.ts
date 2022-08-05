@@ -4,6 +4,7 @@ import UserTokenController from '../controllers/login.controller';
 import TeamsController from '../controllers/teams.controller';
 import MatchesController from '../controllers/matches.controller';
 import authTokenMiddleware from '../middlewares/token.validate';
+import LeaderboardController from '../controllers/leaderboard.controller';
 
 const routers: Router = Router();
 
@@ -40,6 +41,11 @@ routers.patch(
 routers.patch(
   '/matches/:id',
   (req: Request, res: Response) => MatchesController.updateInProgressTrue(req, res),
+);
+
+routers.get(
+  '/leaderboard/home',
+  (req: Request, res: Response) => LeaderboardController.getTeamsHome(req, res),
 );
 
 export default routers;
