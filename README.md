@@ -6,10 +6,10 @@ O TFC é um site informativo sobre partidas e classificações de futebol. O obj
 
 ## Técnologias usadas
 
-Docker
-Sequelize
-Typescript
-POO
-Node.js
-Chai
-Sinon
+Docker,
+Sequelize,
+Typescript,
+POO,
+Node.js,
+Chai,
+Sinon.
