@@ -13,32 +13,3 @@ POO
 Node.js
 Chai
 Sinon
-
-
-## Instalando Dependências
-
-> Backend
-```bash
-cd backend/ 
-npm install
-``` 
-> Frontend
-```bash
-cd frontend/
-npm install
-``` 
-## Executando aplicação
-
-* Para rodar o back-end:
-
-  ```
-  cd api/ && npm start
-  ```
-
-## Executando Testes
-
-* Para rodar todos os testes:
-
-  ```
-    npm run test
-  ```
